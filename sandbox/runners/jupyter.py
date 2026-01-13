@@ -53,7 +53,7 @@ async def run_jupyter(args: RunJupyterRequest) -> RunJupyterResult:
                                     tmp_dir,
                                     get_python_rt_env('sandbox-runtime'),
                                     CodeRunArgs(code='',
-                                                run_timeout=args.total_timeout + 10,
+                                                run_timeout=args.total_timeout,
                                                 fetch_files=args.fetch_files + ['tmp/sandbox/configs/output.json']),
                                     netns_no_bridge=True)
 

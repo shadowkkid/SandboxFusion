@@ -22,6 +22,8 @@ COPY ./runtime/python ./runtime/python
 RUN cd ./runtime/python && bash install-python-runtime.sh
 # fix pyqt error, see https://github.com/NVlabs/instant-ngp/discussions/300
 ENV QT_QPA_PLATFORM=offscreen
+# install ipython
+RUN /root/miniconda3/envs/sandbox-runtime/bin/pip install ipython==8.18.1 --force-reinstall
 ENV OMP_NUM_THREADS=2
 
 COPY ./ /root/sandbox
