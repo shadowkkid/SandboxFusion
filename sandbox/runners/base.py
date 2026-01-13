@@ -160,11 +160,9 @@ async def run_commands(compile_command: Optional[str], run_command: str, cwd: st
         return CodeRunResult(compile_result=compile_res, run_result=run_res, files=files)
 
     elif config.sandbox.isolation == 'lite':
-        async with tmp_overlayfs() as root, tmp_cgroup(mem_limit='4G', cpu_limit=1) as cgroups, tmp_netns(
+        async with tmp_overlayfs() as root, tmp_netns(
                 kwargs.get('netns_no_bridge', False)) as netns:
             prefix = []
-            for cg in cgroups:
-                prefix += ['cgexec', '-g', cg]
             if not kwargs.get('disable_pid_isolation', False):
                 prefix += ['unshare', '--pid', '--fork', '--mount-proc']
             prefix += ['ip', 'netns', 'exec', netns]
